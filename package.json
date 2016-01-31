@@ -11,6 +11,7 @@
       "slack-client": "latest"
   },
   "files": [
-    "main.js"
+    "main.js",
+    "lib"
   ]
 }
