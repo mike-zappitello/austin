@@ -1,17 +1,18 @@
-Slack = require('slack-client');
+var Slack = require('slack-client'),
+    fs = require('fs');
 
-slackToken = 'xoxb-19918014225-2YhCXhSDmq2mB75tnSfxlCRP';
-autoReconnect = true;
-autoMark = true;
+configuration = JSON.parse(fs.readFileSync('configuration.json'));
 
-slack = new Slack(slackToken, autoReconnect, autoMark);
+slack = new Slack(
+        configuration.slackToken, configuration.autoReconnect,
+        configuration.autoMark);
 
 slack.on('open', function(data) {
   console.log("open\n" + data);
 });
 
 slack.on('message', function(message) {
-  console.log("message\n" + message);
+  console.log("received\n" + message);
 });
 
 slack.on('error', function(error) {
