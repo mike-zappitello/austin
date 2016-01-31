@@ -1,0 +1,16 @@
+{
+  "name": "austin-carr",
+  "version": "0.0.1",
+  "description": "Slack Bot for HPD's NBA channel",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/mzappitello/austin.git"
+  },
+  "dependencies": {
+      "nba": "latest",
+      "slack-client": "latest"
+  },
+  "files": [
+    "main.js"
+  ]
+}
