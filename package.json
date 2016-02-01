@@ -9,7 +9,8 @@
   "dependencies": {
       "nba": "latest",
       "slack-client": "latest",
-      "named-regexp": "latest"
+      "named-regexp": "latest",
+      "node-schedule": "latest"
   },
   "files": [
     "main.js",
