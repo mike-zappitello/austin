@@ -8,7 +8,8 @@
   },
   "dependencies": {
       "nba": "latest",
-      "slack-client": "latest"
+      "slack-client": "latest",
+      "named-regexp": "latest"
   },
   "files": [
     "main.js",
