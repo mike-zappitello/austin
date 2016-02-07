@@ -32,7 +32,7 @@
   * nightlyCleanup - resets the nbaContext object for the next day.
   * TODO:
     * use the created jobs to change their scheduling.
-* nba_request: collection of functions to poll sites we can request
+* nbaRequest: collection of functions to poll sites we can request
   * getPlayerStats
   * getPlayerVuStats
   * getTodaysGames
