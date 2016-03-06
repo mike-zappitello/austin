@@ -6,8 +6,10 @@
     "type": "git",
     "url": "http://github.com/mzappitello/austin.git"
   },
+  "author": "mike zappitello",
+  "license": "MIT",
   "dependencies": {
-      "nba": "latest",
+      "nba": "git+https://github.com/mzappitello/nba.git",
       "slack-client": "latest",
       "named-regexp": "latest",
       "node-schedule": "latest"
