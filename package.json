@@ -9,8 +9,8 @@
   "author": "mike zappitello",
   "license": "MIT",
   "dependencies": {
-      "nba": "git+https://github.com/mzappitello/nba.git",
-      "slack-client": "latest",
+      "nba": "file:../nba",
+      "slack-client": "file:../old-slack",
       "named-regexp": "latest",
       "node-schedule": "latest"
   },
