@@ -10,7 +10,7 @@
   "license": "MIT",
   "dependencies": {
       "nba": "file:../nba",
-      "slack-client": "file:../old-slack",
+      "slack-client": "latest",
       "named-regexp": "latest",
       "node-schedule": "latest"
   },
