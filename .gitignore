@@ -4,6 +4,8 @@
 # ignore folders
 node_modules/
 data/
+logs/*.json
+logs/*.log
 
 # ignore test.js since its just for local testing
 test.js

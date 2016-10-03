@@ -12,7 +12,8 @@
       "nba": "file:../nba",
       "slack-client": "latest",
       "named-regexp": "latest",
-      "node-schedule": "latest"
+      "node-schedule": "latest",
+      "winston": "latest"
   },
   "files": [
     "main.js",
