@@ -1,12 +1,17 @@
 #ignore swap files
 *.swp
 
-# ignore folders
+# ignore npm stuff
 node_modules/
+.eslintrc.json
+
+# ignore folders
 data/
 logs/*.json
 logs/*.log
 
 # ignore test.js since its just for local testing
 test.js
+derp.json
+
 configuration.json
