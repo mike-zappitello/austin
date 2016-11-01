@@ -1,63 +1,69 @@
-### architecture so far:
-* main: reads a configuration and calls austin, spawning ausitin, our bot.
-* austin: the object that interacts with slack
-  * 'owns' a context that keeps track of everythign austin needs to remember
-  * has onOpen, onMessage, and onError methods to keep track of what is going
-    on in the slack application.
-    * onMessage currently calls an austin::parseMessage method, that should
-      probably be written in another object.
-    * onOpen calls out to console and has the scheduler start two jobs
-    * onError just logs the error to console
-  * TODO:
-    * move parseMessage into its own class that stores all the regex's
-    * move writting part of pasreMessgae into its own class the writes things
-      out?
-* context: stores the current state that austin knows about
-  * creates a dict of teams by using nba.com's ids as keys
-    * can (should) bring in data from other sources
-    * needs an interface that can take in team abbrevs and names
-    * context.updateStandings updates the teams records
-  * creates a dict of games for that day, comes with method to update it
-    * is update by context.updateGames()
-    * uses context.gamesDate() to stringify day for games request
-    * uses context.cleanup() to remove games from the dict for the next day
-  * TODO:
-    * create a dict of jobs that are currently running to turn them on and
-          off and reschedule them.
-    * add more data to teams, create dict for players?
-    * create file for formatting this information into display stirngs?
-* scheduler: collection of functions that create different jobs
-  * watchGames - polls for the games being played every minute and updates the
-    context object.
-  * nightlyCleanup - resets the nbaContext object for the next day.
-  * TODO:
-    * use the created jobs to change their scheduling.
-* nbaRequest: collection of functions to poll sites we can request
-  * getPlayerStats
-  * getPlayerVuStats
-  * getTodaysGames
+### how to install
+Austin is written using the Node.js framework. Check to see if you have it on
+your system with `node --version`. I'm currently using 5.5.0, but I don't think
+there is anything specific to that version that we need. If you need a download,
+you can find it [here](https://nodejs.org/en/download/)
 
+The Node Package Manager (npm) comes installed with node. You can check its
+instillation with `npm --version`. Now you're ready to install the packages
+Austin depends on.
+
+On the command line, change into the top level directory of this github project,
+where this README lives. Running `npm install` will read the dependencies
+described in [package.json](../blob/master/package.json) and download them for
+you.
+
+The bot is started with the [main.js](../blob/master/main.js) file. To start the
+bot up, you will need a slack token. The configuration can also contain info on
+other sources of data we might want to pull in.
+
+For dev work, I want to have a setup where you can run tests instead of
+launching the app in a slack client itself. To that end, I wrote a
+[test script](../blob/master/test/listenerTest.js) that will take a listener and 
+message as arguments and print out what the response. More tests should be
+written as needs appear.
+
+### architecture so far:
+* main: spawns ausitin, our bot using a passed in config.
+* config: reads a configuration file and creates an ausing configuration object
+* austin: the object that interacts with slack
+  * creates a logging file based on the passed in configuration
+  * creates a web client that is used to post messages and info about a slack
+    session
+  * creates a message parser that can takes a message and composes a response
+  * creates a RealTimeMessaging (RTM) client that is able to watch for events
+    that happen in a slack session and execute functions when specific events
+    occur. 
+* messageParser: contains an array of listeners. checks a message against them.
+  * exports listeners from the [listeners directory](../blob/master/lib/messageListeners/).
+  * listeners are fairly quick to create. they need two functions
+    * handle - takes a message and pulls out any info needed for response
+    * composeResponse - take info from handle and create response to post
+* scheduler: utility to schedule daily tasks. currently unused.
+* nbaRequest: collection of functions to poll nba.com for statistics.
 
 ### things we need to do:
-* settup collection of regex's we want to watch out for. create an object that
-  executes all of them on a given string. watch them in austin.onMessage.
 * ~~setup module to change user input into requests for nba data~~
 * ~~add an enum for every team~~
-* ~~figure out how to launch bot into our team~~
-* ~~setup logging file~~
-* setup a method for allowing testing from multiple sources
 * add methods to slack client api to get reactions, send files, and download
-  files
-* setup a class that formats things for printing out to slack
-* add emoji's for all teams and load them into context.teams
+* setups a tool to use team emojis if they exist and team abbrevs if not
+* expand params that are used to poll for statistics.
+  * get per36 | perGame | total stats
+  * get stats by season
+  * get stats in last game
+* put more work from austin.js to configuration.js where we're setting up how
+  utilities are to be created.
+* create an object that has all of our sorces of data (nbaDotCom, seatgeek,
+  twitter) that can be passed around. add tests using this object.
+* make message parser not dependent on the web client so tests can becom easier
+  to write.
 
 ### features i know i want:
 * pickem game where we display the games of the day in the morning, and it
   tracks who picked what games.
-* get a blast of all articles from a list of rss feeds (prolly via request)
-* post game reuslts somehow
-* stats on demand by player / team (need to figure out a good interafce for
-  this).
-  * figured out player, team should be pretty trivial
+* highlights that show the latest cool thing a player did. (eg `highlights
+  lebron` would add an inline gif / video of a dunk from today)
 * setup some analytics tools on the backend that we can generate charts from to
   display.
+* request stats by team
+* seatgeek client that posts deals on game days
