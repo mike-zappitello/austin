@@ -9,7 +9,7 @@
   "author": "mike zappitello",
   "license": "MIT",
   "dependencies": {
-      "nba": "file:../nba",
+      "nba": "latest",
       "slack-client": "latest",
       "fuzzy": "0.x",
       "named-regexp": "latest",
