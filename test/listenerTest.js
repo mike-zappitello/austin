@@ -4,6 +4,11 @@
 let path = require('path');
 let fs   = require('fs');
 
+// setup the resources we'll use in this listener
+let resources = {
+  nbaRequest: require('./../lib/nbaRequest')
+};
+
 // get the passed in args. they should be formatted thusly:
 // 1st arg - relative file path to a listener.js file
 // 2nd arg - the message you want to test on the listener
@@ -19,6 +24,7 @@ try {
   listenerConstructor = require(listenerFilePath).listener;
 } catch (e) {
   console.log("unable to load listener at " + listenerFilePath);
+  console.log(e);
   process.exit(1);
 }
 
@@ -38,10 +44,11 @@ if (info) {
   console.log("Info Parsed From Message:");
   console.log(info);
 
-  listener.composeResponse(info, function(reply) {
+  let logResponse = function(response) {
     console.log("Listener Reply:");
-    console.log(reply);
-  });
+    console.log(response);
+  };
+  listener.composeResponse(info, resources, logResponse);
 
 // if the listener is unable to handle the message log that.
 } else {
