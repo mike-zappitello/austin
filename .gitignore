@@ -6,7 +6,6 @@ node_modules/
 .eslintrc.json
 
 # ignore folders
-data/
 logs/*.json
 logs/*.log
 
