@@ -9,9 +9,10 @@
   "author": "mike zappitello",
   "license": "MIT",
   "dependencies": {
-    "nba": "latest",
     "botkit": "^0.6.6",
-    "lodash": "4.17"
+    "lodash": "4.17",
+    "nba": "latest",
+    "q": "latest"
   },
   "files": [
     "main.js",
