@@ -1,6 +1,6 @@
 {
   "name": "austin-carr",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Slack Bot for HPD's NBA channel",
   "repository": {
     "type": "git",
@@ -9,14 +9,9 @@
   "author": "mike zappitello",
   "license": "MIT",
   "dependencies": {
-      "nba": "latest",
-      "q": "latest",
-      "slack-client": "latest",
-      "fuzzy": "0.x",
-      "named-regexp": "latest",
-      "node-schedule": "latest",
-      "winston": "latest",
-      "lodash": "4.17"
+    "nba": "latest",
+    "botkit": "^0.6.6",
+    "lodash": "4.17"
   },
   "files": [
     "main.js",
